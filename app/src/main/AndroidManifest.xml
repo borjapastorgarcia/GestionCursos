@@ -27,6 +27,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.borja.falton20.MainActivity" />
         </activity>
+        <activity
+            android:name=".PantalllaInicio"
+            android:label="@string/title_activity_pantallla_inicio"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

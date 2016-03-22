@@ -9,50 +9,130 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <View
+            android:id="@+id/btnFaltas"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="#68EFAD" />
+            android:background="@drawable/botonesmenu"
+            />
 
         <View
+            android:id="@+id/btncv"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:background="#68EFAD" />
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/botonesmenu" />
 
         <View
+            android:id="@+id/btnTareas"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:background="#68EFAD" />
+            android:background="@drawable/botonesmenu" />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="-5dp">
+        <TextView
+            android:id="@+id/btnFaltas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/faltas"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:textColor="#ffff"
+            android:textAppearance="?android:textAppearanceMedium"/>
+        <TextView
+            android:id="@+id/btnFaltas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/compraventa"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#ffff"
+            android:paddingLeft="-10dp"
+            android:textAppearance="?android:textAppearanceMedium"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tareas"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="-1dp"
+            android:textColor="#ffff"
+            android:textAppearance="?android:textAppearanceMedium"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
-        <View
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="#68EFAD" />
 
         <View
+            android:id="@+id/btnIdeas"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:background="#68EFAD" />
+            android:background="@drawable/botonesmenu" />
 
         <View
+            android:id="@+id/btnCurso"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:background="#68EFAD" />
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/botonesmenu" />
+
+        <View
+            android:id="@+id/btnPerful"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/botonesmenu" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="-5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ideas"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:textColor="#ffff"
+            android:textAppearance="?android:textAppearanceMedium"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/curso"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#ffff"
+            android:paddingLeft="-10dp"
+            android:textAppearance="?android:textAppearanceMedium"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/perfil"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="-1dp"
+            android:textColor="#ffff"
+            android:textAppearance="?android:textAppearanceMedium"/>
     </LinearLayout>
 </LinearLayout>
