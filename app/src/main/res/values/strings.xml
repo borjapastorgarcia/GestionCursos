@@ -10,4 +10,25 @@
     <string name="ideas">Ideas</string>
     <string name="curso">Curso</string>
     <string name="perfil">Perfil</string>
+    <string name="introducir_nombre">Introduce el email</string>
+    <string name="introducir_pass">Introduce una contraseña</string>
+    <string name="introducir_email">Introduce un nombre</string>
+    <string name="introducir_pass2">Introduce de nuevo la contraseña</string>
+    <string name="introducir_pass3">La contraseña no es la misma</string>
+    <string name="aceptar_politica">Debes aceptar la politica de privacidad</string>
+    <string name="creando_usuario">Creando usuario...</string>
+    <string name="usuario_ok_creacion">Se ha creado el usuario</string>
+    <string name="usuario_error_creacion">Error en la creacion del usuario</string>
+    <string name="iniciando_sesion">Iniciando sesión...</string>
+    <string name="inicio_sesion_correcto">Se ha iniciado sesion correctamente</string>
+    <string name="inicio_sesion_error">Error en el inicio de sesion</string>
+    <string name="menu"><![CDATA[>>MENU<<]]></string>
+    <string name="title_activity_falta">Falta</string>
+    <string name="title_activity_compra_venta">CompraVenta</string>
+    <string name="title_activity_tareas">Tareas</string>
+    <string name="title_activity_ideas">Ideas</string>
+    <string name="title_activity_curso">Curso</string>
+    <string name="title_activity_perfil">Perfil</string>
+    <string name="nada_mostrar">No hay nada que mostrar para hoy</string>
+    <string name="tipo">TIPO</string>
 </resources>

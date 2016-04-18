@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.borja.falton20">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,6 +32,30 @@
         <activity
             android:name=".PantalllaInicio"
             android:label="@string/title_activity_pantallla_inicio"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Falta"
+            android:label="@string/title_activity_falta"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CompraVenta"
+            android:label="@string/title_activity_compra_venta"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Tareas"
+            android:label="@string/title_activity_tareas"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Ideas"
+            android:label="@string/title_activity_ideas"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Curso"
+            android:label="@string/title_activity_curso"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Perfil"
+            android:label="@string/title_activity_perfil"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

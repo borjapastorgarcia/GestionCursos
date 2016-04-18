@@ -45,6 +45,7 @@ public class JSONParser {
             if(method == "POST"){
                 // request method is POST
                 // defaultHttpClient
+                Log.i("JSONParser","Metodo post");
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 HttpPost httpPost = new HttpPost(url);
                 httpPost.setEntity(new UrlEncodedFormEntity(params));
@@ -54,6 +55,7 @@ public class JSONParser {
                 is = httpEntity.getContent();
 
             }else if(method == "GET"){
+                Log.i("JSONParser","Metodo get");
                 // request method is GET
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 String paramString = URLEncodedUtils.format(params, "utf-8");

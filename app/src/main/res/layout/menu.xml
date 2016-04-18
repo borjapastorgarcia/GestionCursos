@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="#D500F9"
+    android:elevation="16dp"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="visible">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -19,8 +22,7 @@
             android:id="@+id/btnFaltas"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/botonesmenu"
-            />
+            android:background="@drawable/botonesmenu" />
 
         <View
             android:id="@+id/btncv"
@@ -36,48 +38,53 @@
             android:layout_height="60dp"
             android:background="@drawable/botonesmenu" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="-5dp">
+        android:layout_marginTop="-5dp"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/btnFaltas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/faltas"
             android:layout_weight="1"
+            android:gravity="center"
             android:paddingLeft="10dp"
-            android:gravity="center"
-            android:textColor="#ffff"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:text="@string/faltas"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#ffff" />
+
         <TextView
             android:id="@+id/btnFaltas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/compraventa"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="#ffff"
             android:paddingLeft="-10dp"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:text="@string/compraventa"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#ffff" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tareas"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingLeft="-1dp"
-            android:textColor="#ffff"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:text="@string/tareas"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#ffff" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -102,37 +109,41 @@
             android:layout_height="60dp"
             android:background="@drawable/botonesmenu" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="-5dp">
+        android:layout_marginTop="-5dp"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ideas"
             android:layout_weight="1"
+            android:gravity="center"
             android:paddingLeft="10dp"
-            android:gravity="center"
-            android:textColor="#ffff"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:text="@string/ideas"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#ffff" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/curso"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="#ffff"
             android:paddingLeft="-10dp"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:text="@string/curso"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#ffff" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/perfil"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingLeft="-1dp"
-            android:textColor="#ffff"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:text="@string/perfil"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#ffff" />
     </LinearLayout>
 </LinearLayout>
