@@ -11,5 +11,12 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.borja.falton20.Perfil"
     tools:showIn="@layout/activity_perfil">
-
+    <TextView
+        android:id="@+id/tvSaludoEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gris"
+        android:text="Hola--> "
+        android:textAppearance="?android:textAppearanceLarge"
+        android:gravity="center"/>
 </RelativeLayout>

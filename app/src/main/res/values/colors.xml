@@ -3,4 +3,8 @@
     <color name="colorPrimary">#D500F9</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#D500F9</color>
+    <color name="amarillo">#ffff00</color>
+    <color name="rojo"> #e62e00</color>
+    <color name="morado">#cc80ff</color>
+    <color name="gris">#b3b3b3</color>
 </resources>

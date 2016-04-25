@@ -22,7 +22,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
     private String pass1,pass2,email,nombre;
     private EditText etPass1, etPass2, etEmail, etNombre;
     private CheckBox cbbPolitica;
-    private static String url_alta_usuario=WebServices.URL_REGISTRO;
+    private static String url_alta_usuario=WebServices.desarrollo;
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     private static final String TAG_SUCCESS = "success";
@@ -93,14 +93,16 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
         @Override
         protected Integer doInBackground(String... args) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("tipo_consulta", "alta_usuario"));
             params.add(new BasicNameValuePair("nombre", nombre));
             params.add(new BasicNameValuePair("email", email));
             params.add(new BasicNameValuePair("password", pass1));
             JSONObject json = jsonParser.makeHttpRequest(url_alta_usuario,"GET", params);
-            //Log.i("URL","URL-->"+url_alta_usuario+"<-->"+json+"<--"+nombre+"' '"+email+"' '"+pass1);
+            Log.i("URL","URL-->"+url_alta_usuario+"<-->"+json+"<--'"+nombre+"' '"+email+"' '"+pass1+"'");
             // check for success tag
             try {
-                int success = json.getInt(TAG_SUCCESS);
+                Log.i("TAG_SUCCESS-->","-->"+json.getString(TAG_SUCCESS)+"<-- ");
+                int success = Integer.parseInt(json.getString(TAG_SUCCESS));
                 if (success == 1) {
                     return 1;
                 } else {

@@ -1,5 +1,6 @@
 package com.example.borja.falton20;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,11 +18,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PantalllaInicio extends AppCompatActivity {
+public class PantalllaInicio extends AppCompatActivity implements View.OnClickListener{
 
     private ArrayList<Item> datos;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private View viewBtnFaltas,viewBtncVenta,viewBtnTareas,viewBtnIdeas,viewBtnCurso,viewBtnPerfil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,14 +39,14 @@ public class PantalllaInicio extends AppCompatActivity {
                     findViewById(R.id.menu).setVisibility(View.VISIBLE);
             }
         });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        //Botones menu superior
+            ((View)findViewById(R.id.btnFaltas)).setOnClickListener(this);
+            ((View)findViewById(R.id.btncv)).setOnClickListener(this);
+            ((View)findViewById(R.id.btnTareas)).setOnClickListener(this);
+            ((View)findViewById(R.id.btnIdeas)).setOnClickListener(this);
+            ((View)findViewById(R.id.btnCurso)).setOnClickListener(this);
+            ((View)findViewById(R.id.btnPerful)).setOnClickListener(this);
+
         datos=new ArrayList<Item>();
         datos.add(new Item("Examen","Examen de programacion","Estas son las notas del examen de programacion...","Pasado",new Date()));
         datos.add(new Item("Examen","Examen de programacion","Estas son las notas del examen de programacion...","Pasado",new Date()));
@@ -88,4 +90,35 @@ public class PantalllaInicio extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        int id=v.getId();
+        switch (id){
+            case R.id.btnFaltas:
+                Intent i = new Intent(this, Falta.class);
+                startActivity(i);
+                break;
+            case R.id.btncv:
+                 i = new Intent(this, CompraVenta.class);
+                startActivity(i);
+                break;
+            case R.id.btnTareas:
+                i = new Intent(this, Tareas.class);
+                startActivity(i);
+                break;
+            case R.id.btnIdeas:
+                i = new Intent(this, Ideas.class);
+                startActivity(i);
+                break;
+            case R.id.btnCurso:
+                i = new Intent(this, Curso.class);
+                startActivity(i);
+                break;
+            case R.id.btnPerful:
+                i = new Intent(this, Perfil.class);
+                startActivity(i);
+                break;
+
+        }
+    }
 }

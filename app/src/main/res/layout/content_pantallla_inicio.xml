@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.borja.falton20.PantalllaInicio"
-    tools:showIn="@layout/activity_pantallla_inicio"
-    android:orientation="vertical">
+    tools:showIn="@layout/activity_pantallla_inicio">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,17 +32,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MI DIA"
             android:gravity="center"
-            android:textSize="20dp"
-            />
+            android:text="MI DIA"
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/texto_nada_mostrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/nada_mostrar"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="#848484"

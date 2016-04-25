@@ -2,6 +2,7 @@ package com.example.borja.falton20;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,15 +31,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 private Button iniciaSesion, registro;
     private String emailUsuario, passUsuario;
     private ProgressDialog pDialog;
-    private static String url_inicia_sesion=WebServices.URL_INICIO_SESION;
+    private static String url_inicia_sesion=WebServices.desarrollo;
     private static final String TAG_SUCCESS = "success";
     JSONParser jsonParser = new JSONParser();
+    SharedPreferences pref ;
+    SharedPreferences.Editor editor ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        findViewById(R.id.btnIniciaSesion).setOnClickListener(this);
-        findViewById(R.id.btnRegistro).setOnClickListener(this);
+        pref = getApplicationContext().getSharedPreferences("FaltOn", 0);
+        editor = pref.edit();
+        if(pref.getString("email","").equals("")){
+            setContentView(R.layout.activity_main);
+            findViewById(R.id.btnIniciaSesion).setOnClickListener(this);
+            findViewById(R.id.btnRegistro).setOnClickListener(this);
+        }else
+            startActivity(new Intent(this,PantalllaInicio.class));
+
     }
 
     @Override
@@ -94,18 +104,6 @@ private Button iniciaSesion, registro;
         }
     }
     class iniciaSesion extends AsyncTask<String,String,Integer> {
-        @Override
-        protected void onPostExecute(Integer i) {
-            pDialog.dismiss();
-            if (i==1) {
-                Toast.makeText(getApplicationContext(), R.string.inicio_sesion_correcto, Toast.LENGTH_LONG).show();
-                Intent i2=new Intent(MainActivity.this,PantalllaInicio.class);
-                i2.putExtra("email",emailUsuario);
-                startActivity(i2);
-            }else
-                Toast.makeText(getApplicationContext(),R.string.inicio_sesion_error, Toast.LENGTH_LONG).show();
-
-        }
 
         @Override
         protected void onPreExecute() {
@@ -118,23 +116,47 @@ private Button iniciaSesion, registro;
         @Override
         protected Integer doInBackground(String... args) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("email", emailUsuario));
-            params.add(new BasicNameValuePair("password", passUsuario));
+            params.add(new BasicNameValuePair("tipo_consulta", "login"));
+            params.add(new BasicNameValuePair("usu_email", emailUsuario));
+            params.add(new BasicNameValuePair("usu_pass", passUsuario));
             JSONObject json = jsonParser.makeHttpRequest(url_inicia_sesion,"GET", params);
-            Log.i("DIB",url_inicia_sesion+"----"+json);
+            Log.i("DIB",url_inicia_sesion+" "+json);
             try {
-                int success = json.getInt(TAG_SUCCESS);
-                if (success == 2) {
-                    return 1;
-                    // closing this screen
-                } else {
-                    // failed to create product
+                JSONArray jArray  = json.getJSONArray("fila");
+                JSONObject fila=jArray.getJSONObject(0);
+                if(fila==null){
                     return 0;
+                }else{
+                   // Log.i("EmailUsuario-->",fila.getString("Email")+"<--");
+                    if (jArray!=null){
+                        if (fila.getString("Email").equals(emailUsuario)) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    }else
+                        return 0;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             return 0;
         }
+        @Override
+        protected void onPostExecute(Integer i) {
+            pDialog.dismiss();
+            if (i==1) {
+                pref = getApplicationContext().getSharedPreferences("FaltOn", MODE_PRIVATE);
+                editor = pref.edit();
+                editor.putString("email",emailUsuario);
+                editor.commit();
+                Toast.makeText(getApplicationContext(), R.string.inicio_sesion_correcto, Toast.LENGTH_LONG).show();
+                Intent i2=new Intent(MainActivity.this,PantalllaInicio.class);
+                i2.putExtra("email",emailUsuario);
+                startActivity(i2);
+            }else
+                Toast.makeText(getApplicationContext(),R.string.inicio_sesion_error, Toast.LENGTH_LONG).show();
+        }
+
     }
 }

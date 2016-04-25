@@ -31,4 +31,8 @@
     <string name="title_activity_perfil">Perfil</string>
     <string name="nada_mostrar">No hay nada que mostrar para hoy</string>
     <string name="tipo">TIPO</string>
+    <string name="addNota">Añadir nota</string>
+    <string name="addFalta">Añadir falta</string>
+    <string name="addTarea">Añadir tarea</string>
+    <string name="addIdea" >Añadir idea</string>
 </resources>

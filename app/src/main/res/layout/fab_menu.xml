@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<com.getbase.floatingactionbutton.FloatingActionsMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/fab_margin"
+    fab:fab_addButtonSize="normal">
 
-</LinearLayout>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_note"
+        fab:fab_addButtonSize="mini"
+        fab:fab_colorNormal="@color/amarillo"
+        fab:fab_title="@string/addNota" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_falta"
+        fab:fab_addButtonSize="mini"
+        fab:fab_colorNormal="@color/rojo"
+        fab:fab_title="@string/addFalta" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_tarea"
+        fab:fab_addButtonSize="mini"
+        fab:fab_colorNormal="@color/morado"
+        fab:fab_title="@string/addTarea" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_idea"
+        fab:fab_addButtonSize="mini"
+        fab:fab_colorNormal="@color/gris"
+        fab:fab_title="@string/addIdea" />
+</com.getbase.floatingactionbutton.FloatingActionsMenu>
