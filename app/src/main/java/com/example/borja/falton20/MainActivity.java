@@ -1,8 +1,11 @@
 package com.example.borja.falton20;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -33,6 +36,7 @@ private Button iniciaSesion, registro;
     private ProgressDialog pDialog;
     private static String url_inicia_sesion=WebServices.desarrollo;
     private static final String TAG_SUCCESS = "success";
+    View v;
     JSONParser jsonParser = new JSONParser();
     SharedPreferences pref ;
     SharedPreferences.Editor editor ;
@@ -74,6 +78,7 @@ private Button iniciaSesion, registro;
 
     @Override
     public void onClick(View v) {
+        this.v=v;
         switch (v.getId()){
             case R.id.btnIniciaSesion:
                 //validar datos e iniciar sesion
@@ -99,10 +104,38 @@ private Button iniciaSesion, registro;
 
                  emailUsuario=((EditText)findViewById(R.id.EmailUsuario)).getText().toString();
                  passUsuario=((EditText)findViewById(R.id.PasswordUsuario)).getText().toString();
-                new iniciaSesion().execute();
+
+                if (haveNetworkConnection()) {
+                    new iniciaSesion().execute();
+                }else{
+                    Snackbar.make(v, "No hay conexión a internet", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            new iniciaSesion().execute();
+                        }
+                    }).show();
+                }
             }
         }
     }
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
     class iniciaSesion extends AsyncTask<String,String,Integer> {
 
         @Override
@@ -111,6 +144,7 @@ private Button iniciaSesion, registro;
             pDialog = new ProgressDialog(MainActivity.this);
             pDialog.setMessage(getResources().getString(R.string.iniciando_sesion));
             pDialog.show();
+            //////
         }
 
         @Override
