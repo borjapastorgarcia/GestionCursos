@@ -111,7 +111,8 @@ private Button iniciaSesion, registro;
                     Snackbar.make(v, "No hay conexión a internet", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            new iniciaSesion().execute();
+                            if (haveNetworkConnection())
+                                new iniciaSesion().execute();
                         }
                     }).show();
                 }

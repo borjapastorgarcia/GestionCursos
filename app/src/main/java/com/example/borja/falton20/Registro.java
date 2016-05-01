@@ -74,6 +74,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
                                             Snackbar.make(v, "No hay conexión a internet", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
+                                                    if (haveNetworkConnection())
                                                     new Alta().execute();
                                                 }
                                             }).show();
