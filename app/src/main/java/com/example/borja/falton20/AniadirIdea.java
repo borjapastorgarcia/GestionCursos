@@ -93,7 +93,7 @@ private  String titulo, descripcion;
             progressDialog.dismiss();
             if (i==1) {
                 Toast.makeText(getApplicationContext(), R.string.idea_creada, Toast.LENGTH_LONG).show();
-                startActivity(new Intent(AniadirIdea.this, MainActivity.class));
+                startActivity(new Intent(AniadirIdea.this, Ideas.class));
             }else {
                 Toast.makeText(getApplicationContext(), R.string.idea_creada_error, Toast.LENGTH_LONG).show();
             }

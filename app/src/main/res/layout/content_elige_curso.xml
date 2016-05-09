@@ -20,22 +20,26 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tvEligeTuCurso"
-            android:textAppearance="?android:textAppearanceMedium"/>
-
-        <Spinner
-            android:id="@+id/spEligeTuCurso"
+            android:text="@string/aniadeCurso"
+            android:textAppearance="?android:textAppearanceLarge"/>
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"></Spinner>
+            android:id="@+id/etNombreDelCurso"
+            android:hint="@string/aniadeNombreCurso"/>
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etDescripcionCurso"
+            android:hint="@string/aniadeDescripcionCurso"/>
         <Button
-            android:id="@+id/btnSiguienteCurso"
+            android:id="@+id/btnAniadeCurso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/botones"
             android:textColor="@color/blanco"
-            android:text="@string/siguiente" />
+            android:text="@string/aniadir" />
     </LinearLayout>
 </RelativeLayout>

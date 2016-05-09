@@ -12,8 +12,14 @@
     tools:context="com.example.borja.falton20.Ideas"
     tools:showIn="@layout/activity_ideas">
 
-    <ListView
-        android:id="@+id/listViewListaIdeas"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:id="@+id/swipeRefreshIdea">
+        <ListView
+            android:id="@+id/listViewListaIdeas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

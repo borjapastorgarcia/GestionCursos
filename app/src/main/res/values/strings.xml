@@ -54,4 +54,15 @@
     <string name="guardando_idea">Guardando idea...</string>
     <string name="idea_creada">Se ha guardado tu idea</string>
     <string name="idea_creada_error">Error en el guardado de la idea, prueba mas tarde</string>
+    <string name="aniadeCurso">Añade tu curso...</string>
+    <string name="aniadeNombreCurso">Nombre del curso</string>
+    <string name="aniadeDescripcionCurso">Descripcion del curso</string>
+    <string name="guardando_curso">Guardando curso...</string>
+    <string name="curso_creado">El curso se ha guardado correctamente</string>
+    <string name="curso_creado_error">Error en la creacion del curso</string>
+    <string name="nombreDelCurso">Nombre del curso</string>
+    <string name="nombreDeLaAsignatura">Nombre de la asignatura</string>
+    <string name="cargando_lista">Cargando lista de cursos...</string>
+    <string name="tituloDeLaIdea">Titulo de la idea</string>
+    <string name="cargando_lista_ideas">Cargando lista de ideas...</string>
 </resources>
