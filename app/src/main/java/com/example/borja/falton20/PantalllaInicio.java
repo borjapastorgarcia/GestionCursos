@@ -40,12 +40,17 @@ public class PantalllaInicio extends AppCompatActivity implements View.OnClickLi
             }
         });
         //Botones menu superior
-            ((View)findViewById(R.id.btnFaltas)).setOnClickListener(this);
-            ((View)findViewById(R.id.btncv)).setOnClickListener(this);
-            ((View)findViewById(R.id.btnTareas)).setOnClickListener(this);
-            ((View)findViewById(R.id.btnIdeas)).setOnClickListener(this);
-            ((View)findViewById(R.id.btnCurso)).setOnClickListener(this);
-            ((View)findViewById(R.id.btnPerful)).setOnClickListener(this);
+            findViewById(R.id.btnFaltas).setOnClickListener(this);
+            findViewById(R.id.btncv).setOnClickListener(this);
+            findViewById(R.id.btnTareas).setOnClickListener(this);
+            findViewById(R.id.btnIdeas).setOnClickListener(this);
+            findViewById(R.id.btnCurso).setOnClickListener(this);
+            findViewById(R.id.btnPerful).setOnClickListener(this);
+        //botones FAB menu
+            findViewById(R.id.fabAniadirFalta).setOnClickListener(this);
+            findViewById(R.id.fabAniadirIdea).setOnClickListener(this);
+            findViewById(R.id.fabAniadirNota).setOnClickListener(this);
+            findViewById(R.id.fabAniadirTarea).setOnClickListener(this);
 
         datos=new ArrayList<Item>();
         datos.add(new Item("Examen","Examen de programacion","Estas son las notas del examen de programacion...","Pasado",new Date()));
@@ -116,6 +121,22 @@ public class PantalllaInicio extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.btnPerful:
                 i = new Intent(this, Perfil.class);
+                startActivity(i);
+                break;
+            case R.id.fabAniadirFalta:
+                i = new Intent(this, AniadirFalta.class);
+                startActivity(i);
+                break;
+            case R.id.fabAniadirIdea:
+                i = new Intent(this, AniadirIdea.class);
+                startActivity(i);
+                break;
+            case R.id.fabAniadirTarea:
+                i = new Intent(this, AniadirTarea.class);
+                startActivity(i);
+                break;
+            case R.id.fabAniadirNota:
+                i = new Intent(this, AniadirNota.class);
                 startActivity(i);
                 break;
 

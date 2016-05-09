@@ -12,4 +12,8 @@
     tools:context="com.example.borja.falton20.Tareas"
     tools:showIn="@layout/activity_tareas">
 
+    <ListView
+        android:id="@+id/listViewListaTaras"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
 </RelativeLayout>

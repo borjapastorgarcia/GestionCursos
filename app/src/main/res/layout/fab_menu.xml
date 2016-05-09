@@ -9,7 +9,7 @@
 
 
     <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabAniadirNota"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_note"
@@ -18,7 +18,7 @@
         fab:fab_title="@string/addNota" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab2"
+        android:id="@+id/fabAniadirFalta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_falta"
@@ -27,7 +27,7 @@
         fab:fab_title="@string/addFalta" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab3"
+        android:id="@+id/fabAniadirTarea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_tarea"
@@ -36,7 +36,7 @@
         fab:fab_title="@string/addTarea" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab4"
+        android:id="@+id/fabAniadirIdea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_idea"

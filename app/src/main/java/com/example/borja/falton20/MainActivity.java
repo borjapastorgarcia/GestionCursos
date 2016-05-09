@@ -101,22 +101,22 @@ private Button iniciaSesion, registro;
                 Toast.makeText(MainActivity.this, "Inserta una contraseña", Toast.LENGTH_SHORT).show();
                 ((EditText)findViewById(R.id.PasswordUsuario)).requestFocus();
             }else{
-
                  emailUsuario=((EditText)findViewById(R.id.EmailUsuario)).getText().toString();
                  passUsuario=((EditText)findViewById(R.id.PasswordUsuario)).getText().toString();
-
-                if (haveNetworkConnection()) {
-                    new iniciaSesion().execute();
-                }else{
-                    Snackbar.make(v, "No hay conexión a internet", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (haveNetworkConnection())
-                                new iniciaSesion().execute();
-                        }
-                    }).show();
-                }
+                inicia_sesion();
             }
+        }
+    }
+    public void inicia_sesion(){
+        if (haveNetworkConnection()) {
+            new iniciaSesion().execute();
+        }else{
+            Snackbar.make(v, "No hay conexión a internet", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   inicia_sesion();
+                }
+            }).show();
         }
     }
     private boolean haveNetworkConnection() {
@@ -162,9 +162,16 @@ private Button iniciaSesion, registro;
                 if(fila==null){
                     return 0;
                 }else{
-                   // Log.i("EmailUsuario-->",fila.getString("Email")+"<--");
                     if (jArray!=null){
                         if (fila.getString("Email").equals(emailUsuario)) {
+                            //set preferences con datos de usuario
+                            pref = getApplicationContext().getSharedPreferences("FaltOn", MODE_PRIVATE);
+                            editor = pref.edit();
+                            editor.putInt("idUsuario",fila.getInt("id"));
+                            editor.putString("nombre",fila.getString("Nombre"));
+                            editor.putString("email",fila.getString("Email"));
+                            editor.putString("telefono",fila.getString("Telefono"));
+                            editor.commit();
                             return 1;
                         } else {
                             return 0;
@@ -181,10 +188,6 @@ private Button iniciaSesion, registro;
         protected void onPostExecute(Integer i) {
             pDialog.dismiss();
             if (i==1) {
-                pref = getApplicationContext().getSharedPreferences("FaltOn", MODE_PRIVATE);
-                editor = pref.edit();
-                editor.putString("email",emailUsuario);
-                editor.commit();
                 Toast.makeText(getApplicationContext(), R.string.inicio_sesion_correcto, Toast.LENGTH_LONG).show();
                 Intent i2=new Intent(MainActivity.this,PantalllaInicio.class);
                 i2.putExtra("email",emailUsuario);
@@ -192,6 +195,5 @@ private Button iniciaSesion, registro;
             }else
                 Toast.makeText(getApplicationContext(),R.string.inicio_sesion_error, Toast.LENGTH_LONG).show();
         }
-
     }
 }

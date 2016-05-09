@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,8 +25,8 @@
             android:name=".Registro"
             android:label="@string/title_activity_registro"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.borja.falton20.MainActivity" />
@@ -33,38 +34,66 @@
         <activity
             android:name=".PantalllaInicio"
             android:label="@string/title_activity_pantallla_inicio"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Falta"
             android:label="@string/title_activity_falta"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CompraVenta"
             android:label="@string/title_activity_compra_venta"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Tareas"
             android:label="@string/title_activity_tareas"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Ideas"
             android:label="@string/title_activity_ideas"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Curso"
             android:label="@string/title_activity_curso"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Perfil"
             android:label="@string/title_activity_perfil"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AniadirFalta"
+            android:label="@string/title_activity_aniadir_falta"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AniadirNota"
+            android:label="@string/title_activity_aniadir_nota"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AniadirIdea"
+            android:label="@string/title_activity_aniadir_idea"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AniadirTarea"
+            android:label="@string/title_activity_aniadir_tarea"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EligeCurso"
+            android:label="@string/title_activity_elige_curso"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EligeAsignaturas"
+            android:label="@string/title_activity_elige_asignaturas"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AniadirObjeto"
+            android:label="@string/title_activity_aniadir_objeto"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

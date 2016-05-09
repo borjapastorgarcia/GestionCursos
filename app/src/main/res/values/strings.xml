@@ -34,5 +34,24 @@
     <string name="addNota">Añadir nota</string>
     <string name="addFalta">Añadir falta</string>
     <string name="addTarea">Añadir tarea</string>
-    <string name="addIdea" >Añadir idea</string>
+    <string name="addIdea">Añadir idea</string>
+    <string name="title_activity_aniadir_falta">AniadirFalta</string>
+    <string name="title_activity_aniadir_nota">AniadirNota</string>
+    <string name="title_activity_aniadir_idea">AniadirIdea</string>
+    <string name="title_activity_aniadir_tarea">AniadirTarea</string>
+    <string name="title_activity_elige_curso">EligeCurso</string>
+    <string name="tvEligeTuCurso">Elige tu curso</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="title_activity_elige_asignaturas">EligeAsignaturas</string>
+    <string name="tvEligeTusAsignaturas">Elige tus asignaturas</string>
+    <string name="eligeLaFechaFalta">Elige la fecha de tu falta</string>
+    <string name="fechaEjemplo">dd/mm/yyyy</string>
+    <string name="aniadir">Añadir</string>
+    <string name="aniadiendoFalta">Añadiendo la falta...</string>
+    <string name="title_activity_aniadir_objeto">AniadirObjeto</string>
+    <string name="aniadeTuObjeto">Añade tu objeto</string>
+    <string name="guardarIdea">Guardar idea</string>
+    <string name="guardando_idea">Guardando idea...</string>
+    <string name="idea_creada">Se ha guardado tu idea</string>
+    <string name="idea_creada_error">Error en el guardado de la idea, prueba mas tarde</string>
 </resources>
