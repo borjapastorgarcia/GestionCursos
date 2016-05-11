@@ -32,13 +32,52 @@
             android:editable="false"
             android:hint="@string/fechaEjemplo"
             android:textAppearance="?android:textAppearanceMedium" />
+        <TextView
+            android:id="@+id/tvEligeCurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Elige_curso"
+            android:textAppearance="?android:textAppearanceMedium" />
 
         <Spinner
-            android:id="@+id/spAsignatura"
+            android:id="@+id/spCurso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"></Spinner>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/elige_asignatura"
+            android:textAppearance="?android:textAppearanceMedium" />
+        <Spinner
+        android:id="@+id/spAsignatura"
 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"></Spinner>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvNumeroFaltas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/NumeroFaltas"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/etNumHoras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:inputType="number"
+            android:maxLength="2"
+            android:hint="@string/numHoras"
+            android:textAppearance="?android:textAppearanceMedium" />
+    </LinearLayout>
         <Button
             android:id="@+id/btnAniadirFalta"
             android:layout_width="match_parent"

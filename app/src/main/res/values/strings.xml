@@ -65,4 +65,17 @@
     <string name="cargando_lista">Cargando lista de cursos...</string>
     <string name="tituloDeLaIdea">Titulo de la idea</string>
     <string name="cargando_lista_ideas">Cargando lista de ideas...</string>
+    <string name="title_activity_asignatura">Asignatura</string>
+    <string name="title_activity_aniadir_asignatura">AniadirAsignatura</string>
+    <string name="asignatura_creada_error">Error en la creacion de la asignatura</string>
+    <string name="asignatura_creada">Asignatura creada correctamente</string>
+    <string name="guardando_asignatura">Guardando asignatura...</string>
+    <string name="porcentaje_faltas">El porcentaje permitido es de:</string>
+    <string name="total_faltas">Llevas un total horas faltadas de:</string>
+    <string name="Elige_curso">Elige el curso</string>
+    <string name="elige_asignatura">Elige la asignatura</string>
+    <string name="NumeroFaltas">¿Cuántas horas has faltado?</string>
+    <string name="numHoras">Nº horas</string>
+    <string name="cargando_lista_asignaturas">Cargando lista de asignaturas...</string>
+    <string name="cargando_lista_faltas">Cargando la lista de faltas...</string>
 </resources>

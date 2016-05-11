@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -42,6 +41,9 @@ public class Curso extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefrescaListaCursos);
+
+        listViewCursos=(ListView)findViewById(R.id.listaCursos);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
             public void onRefresh() {
@@ -49,7 +51,6 @@ public class Curso extends AppCompatActivity{
                 listViewCursos.setAdapter(null);
                 listaCursos = new ArrayList<ClaseCurso>();
                 new devuelveTodosCursos().execute();
-                listViewCursos=(ListView)findViewById(R.id.listaCursos);
                 listAdapter = new AdaptadorListViewDevuelveCursos(ctx, listaCursos);
                 listViewCursos.setAdapter(listAdapter);
                 swipeRefreshLayout.setRefreshing(false);
@@ -59,7 +60,6 @@ public class Curso extends AppCompatActivity{
         idUsuario=DatosUsuario.getIdUsuario();
         ctx=this.getApplicationContext();
         new devuelveTodosCursos().execute();
-        listViewCursos=(ListView)findViewById(R.id.listaCursos);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +107,16 @@ public class Curso extends AppCompatActivity{
             for(int i=0;i<listaCursos.size();i++)
                 Log.i("Curso-->",listaCursos.get(i).toString());
             listViewCursos.setAdapter(listAdapter);
+            listViewCursos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.i("onItemClick","Cursos click lista, idCurso: "+listaCursos.get(position).getId());
+                    Intent i=new Intent(Curso.this,Asignatura.class);
+                    i.putExtra("idcurso",listaCursos.get(position).getId());
+                    i.putExtra("nombreCurso",listaCursos.get(position).getNombre());
+                    startActivity(i);
+                }
+            });
             progressDialog.dismiss();
         }
     }

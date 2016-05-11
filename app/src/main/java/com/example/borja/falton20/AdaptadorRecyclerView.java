@@ -43,8 +43,7 @@ public class AdaptadorRecyclerView extends RecyclerView.Adapter<AdaptadorRecycle
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.listitem, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem, parent, false);
         itemView.setOnClickListener(this);
         ItemViewHolder tvh = new ItemViewHolder(itemView);
         return tvh;
@@ -52,7 +51,6 @@ public class AdaptadorRecyclerView extends RecyclerView.Adapter<AdaptadorRecycle
     @Override
     public void onBindViewHolder(ItemViewHolder viewHolder, int pos) {
         Item item = datos.get(pos);
-
         viewHolder.bindTitular(item);
     }
 

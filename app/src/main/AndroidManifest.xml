@@ -93,6 +93,14 @@
         <activity
             android:name=".AniadirObjeto"
             android:label="@string/title_activity_aniadir_objeto"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Asignatura"
+            android:label="@string/title_activity_asignatura"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AniadirAsignatura"
+            android:label="@string/title_activity_aniadir_asignatura"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

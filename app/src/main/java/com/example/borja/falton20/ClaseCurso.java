@@ -39,10 +39,6 @@ public class ClaseCurso {
 
     @Override
     public String toString() {
-        return "ClaseCurso{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
+        return nombre;
     }
 }
