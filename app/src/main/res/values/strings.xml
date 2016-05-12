@@ -78,4 +78,8 @@
     <string name="numHoras">Nº horas</string>
     <string name="cargando_lista_asignaturas">Cargando lista de asignaturas...</string>
     <string name="cargando_lista_faltas">Cargando la lista de faltas...</string>
+    <string name="falta_ok_creada">La falta se ha guardado correctamente</string>
+    <string name="falta_error_creada">Error en el guardado de la falta</string>
+    <string name="cancelar">cancelar</string>
+    <string name="guardar">guardar</string>
 </resources>

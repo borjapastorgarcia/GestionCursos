@@ -111,7 +111,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
                 startActivity(i2);
             }else
                 Toast.makeText(getApplicationContext(),R.string.usuario_error_creacion, Toast.LENGTH_LONG).show();
-        }
+            }
 
         @Override
         protected void onPreExecute() {

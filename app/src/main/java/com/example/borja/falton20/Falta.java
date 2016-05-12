@@ -29,7 +29,7 @@ public class Falta extends AppCompatActivity {
     private ArrayList<ClaseCurso> listaCursos = new ArrayList<ClaseCurso>();
     private ArrayList<ClaseAsignatura> listaAsignaturas = new ArrayList<ClaseAsignatura>();
     private ArrayList<ClaseFalta> listaFaltas = new ArrayList<ClaseFalta>();
-    public ProgressDialog progressDialogCursos,progressDialogAsignaturas,progressDialogFaltas;
+    public ProgressDialog progressDialog;
     int idUsuario,idCurso,idAsignatura;
     private static final String TAG_SUCCESS = "success";
     private JSONParser jsonParser = new JSONParser();
@@ -85,9 +85,9 @@ public class Falta extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialogCursos = new ProgressDialog(Falta.this);
-            progressDialogCursos.setMessage(getResources().getString(R.string.cargando_lista));
-            progressDialogCursos.show();
+            progressDialog = new ProgressDialog(Falta.this);
+            progressDialog.setMessage(getResources().getString(R.string.cargando_lista));
+            progressDialog.show();
         }
         @Override
         protected void onPostExecute(Integer integer) {
@@ -95,13 +95,14 @@ public class Falta extends AppCompatActivity {
             for (int i = 0; i < listaCursos.size(); i++)
                 Log.i("Curso-->", listaCursos.get(i).toString());
             if(listaCursos.size()>0){
-                for(int i=0;i<listaCursos.size();i++){
+                new devuelveTodasAsignaturas().execute();
+                for(int i=1;i<listaCursos.size();i++){
                     idCurso=listaCursos.get(i).getId();
+                    Log.i("arraylistcursos","-->"+listaCursos.get(i).getId()+"<-- ");
                     new devuelveTodasAsignaturas().execute();
                 }
-
-            }
-            progressDialogCursos.dismiss();
+            }else
+                progressDialog.dismiss();
         }
     }
     class devuelveTodasAsignaturas extends AsyncTask<String,String,Integer> {
@@ -112,7 +113,7 @@ public class Falta extends AppCompatActivity {
             params.add(new BasicNameValuePair("usu_id", String.valueOf(idUsuario)));
             params.add(new BasicNameValuePair("cu_id", String.valueOf(idCurso)));
             JSONObject json = jsonParser.makeHttpRequest(url_alta_usuario,"GET", params);
-            Log.i("devuelveAsigXCurso","-->"+url_alta_usuario+"<-- "+json);
+            Log.i("devuelveAsigXCurso","-->"+url_alta_usuario+"<-- "+json+"cu_id"+idCurso);
             try {
                 JSONArray jArray  = json.getJSONArray("asignaturas");
                 for(int i=0;i<jArray.length();i++){
@@ -131,9 +132,6 @@ public class Falta extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialogAsignaturas = new ProgressDialog(Falta.this);
-            progressDialogAsignaturas.setMessage(getResources().getString(R.string.cargando_lista_asignaturas));
-            progressDialogAsignaturas.show();
         }
 
         @Override
@@ -147,17 +145,14 @@ public class Falta extends AppCompatActivity {
                     idAsignatura=listaAsignaturas.get(i).getIdAsignatura();
                     new devuelveFaltasXAsignatura().execute();
                 }
-            }
-            progressDialogAsignaturas.dismiss();
+            }else
+                progressDialog.dismiss();
         }
     }
     class devuelveFaltasXAsignatura extends AsyncTask<String, String, Integer>{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialogFaltas = new ProgressDialog(Falta.this);
-            progressDialogFaltas.setMessage(getResources().getString(R.string.cargando_lista_faltas));
-            progressDialogFaltas.show();
         }
 
         @Override
@@ -168,7 +163,7 @@ public class Falta extends AppCompatActivity {
             if (listaFaltas.size()==0){
                 Toast.makeText(ctx, "No tienes ninguna falta", Toast.LENGTH_SHORT).show();
             }
-            progressDialogFaltas.dismiss();
+            progressDialog.dismiss();
         }
 
         @Override
@@ -178,7 +173,7 @@ public class Falta extends AppCompatActivity {
             params.add(new BasicNameValuePair("usu_id", String.valueOf(idUsuario)));
             params.add(new BasicNameValuePair("asig_id",String.valueOf(idAsignatura)));
             JSONObject json = jsonParser.makeHttpRequest(url_alta_usuario,"GET", params);
-            Log.i("devuelveAsigXCurso","-->"+url_alta_usuario+"<-- "+json);
+            Log.i("devuelveAsigXCurso","-->"+url_alta_usuario+"<-- "+json+"idasign-->"+idAsignatura);
             try {
                 JSONArray jArray  = json.getJSONArray("faltas");
                 for(int i=0;i<jArray.length();i++){

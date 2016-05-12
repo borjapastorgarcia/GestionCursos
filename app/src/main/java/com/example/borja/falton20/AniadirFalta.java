@@ -3,8 +3,12 @@ package com.example.borja.falton20;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -38,7 +42,7 @@ public class AniadirFalta extends AppCompatActivity implements View.OnClickListe
     private Spinner spAsignaturasUsuario, spCursosUsuario;
     private EditText etFecha;
     private String pYear, pMonth, pDay;
-    private ClaseFalta claseFalta;
+    private ClaseAsignatura claseAsignatura;
     private ProgressDialog progressDialog;
     JSONParser jsonParser = new JSONParser();
     private Context ctx;
@@ -46,6 +50,8 @@ public class AniadirFalta extends AppCompatActivity implements View.OnClickListe
     private  String emailUsuario, nombreUsuario, telefonoUsuario;
     private  int idUsuario, idCurso, idAsignatura;
     final Calendar cal = Calendar.getInstance();
+    private static final String TAG_SUCCESS = "success";
+    View v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +110,7 @@ public class AniadirFalta extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        this.v=v;
         switch (v.getId()){
             case R.id.btnAniadirFalta:
                 comprobarCampos();
@@ -126,8 +133,54 @@ public class AniadirFalta extends AppCompatActivity implements View.OnClickListe
         }
         else{
             //se manda al ws
-            new aniadirFalta().execute();
+            if(spCursosUsuario.getSelectedItem()==null){
+                Toast.makeText(AniadirFalta.this, "Elige un curso", Toast.LENGTH_SHORT).show();
+            }else{
+                if(spAsignaturasUsuario.getSelectedItem()==null){
+                    Toast.makeText(AniadirFalta.this, "Elige una asignatura", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    String numHoras=((EditText)findViewById(R.id.etNumHoras)).getText().toString();
+                    if(numHoras.equals("")){
+                        Toast.makeText(AniadirFalta.this, "indica el numero de horas que has faltado", Toast.LENGTH_SHORT).show();
+                    }else{
+                        claseAsignatura=((ClaseAsignatura) spAsignaturasUsuario.getSelectedItem());
+                        enviaFalta();
+                    }
+                }
+            }
+
         }
+    }
+    public void enviaFalta(){
+        if (haveNetworkConnection()) {
+            new aniadirFalta().execute();
+        }else{
+            Snackbar.make(v, "No hay conexión a internet", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (haveNetworkConnection())
+                        enviaFalta();
+                }
+            }).show();
+        }
+    }
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
     class aniadirFalta extends AsyncTask<String,String,Integer>{
 
@@ -143,9 +196,22 @@ public class AniadirFalta extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }
             params.add(new BasicNameValuePair("fa_fecha", fecha));
-            params.add(new BasicNameValuePair("asig_id",String.valueOf(claseFalta.getIdAsignatura())));
+            params.add(new BasicNameValuePair("asig_id",String.valueOf(claseAsignatura.getIdAsignatura())));
             JSONObject json = jsonParser.makeHttpRequest(url_alta_usuario,"GET", params);
-            return null;
+            // check for success tag
+            try {
+                Log.i("TAG_SUCCESS-->","-->"+json.getString(TAG_SUCCESS)+"<-- ");
+                int success = Integer.parseInt(json.getString(TAG_SUCCESS));
+                if (success == 1) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return 0;
         }
 
         @Override
@@ -159,9 +225,14 @@ public class AniadirFalta extends AppCompatActivity implements View.OnClickListe
         }
 
         @Override
-        protected void onPostExecute(Integer integer) {
-            super.onPostExecute(integer);
-            pDialog.hide();
+        protected void onPostExecute(Integer i) {
+            pDialog.dismiss();
+            if (i==1) {
+                Toast.makeText(getApplicationContext(), R.string.falta_ok_creada, Toast.LENGTH_LONG).show();
+                Intent i2=new Intent(AniadirFalta.this,Falta.class);
+                startActivity(i2);
+            }else
+                Toast.makeText(getApplicationContext(),R.string.falta_error_creada, Toast.LENGTH_LONG).show();
         }
     }
 

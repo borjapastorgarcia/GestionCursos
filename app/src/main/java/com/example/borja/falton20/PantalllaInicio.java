@@ -2,6 +2,7 @@ package com.example.borja.falton20;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -75,9 +76,8 @@ public class PantalllaInicio extends AppCompatActivity implements View.OnClickLi
             ((TextView)findViewById(R.id.texto_nada_mostrar)).setVisibility(View.VISIBLE);
 
         recyclerView.setAdapter(adaptador);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        //recView.setLayoutManager(new GridLayoutManager(this,3));
-
+        LinearLayoutManager ll=new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(ll);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
