@@ -1,9 +1,13 @@
 package com.example.borja.falton20;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,6 +26,7 @@ import java.util.List;
 
 public class EligeCurso extends AppCompatActivity implements View.OnClickListener {
     Spinner spCurso;
+    View v;
     String nombreCurso, descripcionCurso;
     EditText etNombreCurso, etDescripcionCurso;
     private ProgressDialog progressDialog;
@@ -44,6 +49,7 @@ public class EligeCurso extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        this.v=v;
         switch (v.getId()){
             case R.id.btnAniadeCurso:
                 comprobarCamposCurso();
@@ -56,8 +62,38 @@ public class EligeCurso extends AppCompatActivity implements View.OnClickListene
         if(nombreCurso.equals("")||descripcionCurso.equals("")){
             Toast.makeText(EligeCurso.this, "Rellena todos los campos del curso", Toast.LENGTH_SHORT).show();
         }else{
-            new AniadeCurso().execute();
+            comprobarInternet();
         }
+    }
+    public void comprobarInternet(){
+        if (haveNetworkConnection()) {
+            new AniadeCurso().execute();
+        }else{
+            Snackbar.make(v, "No hay conexión a internet, intentelo mas tarde", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (haveNetworkConnection())
+                        new AniadeCurso().execute();
+                }
+            }).show();
+        }
+    }
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
     class AniadeCurso extends AsyncTask<String,String,Integer>{
         @Override

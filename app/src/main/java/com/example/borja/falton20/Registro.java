@@ -108,6 +108,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
                 Intent i2=new Intent(Registro.this,PantalllaInicio.class);
                 i2.putExtra("email",email);
                 i2.putExtra("nombre",nombre);
+
                 startActivity(i2);
             }else
                 Toast.makeText(getApplicationContext(),R.string.usuario_error_creacion, Toast.LENGTH_LONG).show();

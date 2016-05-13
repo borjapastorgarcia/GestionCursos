@@ -18,6 +18,7 @@ public class DatosUsuario {
         Log.e("DatosUsuario-->","Email:"+emailUsuario+", ID:"+idUsuario);
     }
 
+
     public static String getEmailUsuario() {
         return emailUsuario;
     }
