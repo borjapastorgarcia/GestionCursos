@@ -34,6 +34,7 @@ private SharedPreferences pref;
     private ProgressDialog progressDialog;
     private static String url_alta_usuario=WebServices.desarrollo;
     JSONParser jsonParser = new JSONParser();
+    private int idUsuario;
     private static final String TAG_SUCCESS = "success";
     View v;
     @Override
@@ -50,6 +51,7 @@ private SharedPreferences pref;
         etTelefono=(EditText) findViewById(R.id.ettelefono);
         SharedPreferences pref = getApplicationContext().getSharedPreferences("FaltOn", MODE_PRIVATE);
         DatosUsuario.recuperarPreferences(pref);
+        idUsuario=DatosUsuario.getIdUsuario();
         etNombre.setText(DatosUsuario.getNombreUsuario());
         etTelefono.setText(DatosUsuario.getTelefonoUsuario());
         btnGuardar=(Button)findViewById(R.id.btnGuardar);
@@ -91,7 +93,7 @@ private SharedPreferences pref;
                 @Override
                 public void onClick(View view) {
                     if (haveNetworkConnection())
-                        new UpdatePerfil().execute();
+                        mandarDatosAServer();
                 }
             }).show();
         }
@@ -116,11 +118,12 @@ private SharedPreferences pref;
         @Override
         protected Integer doInBackground(String... args) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("tipo_consulta", "actualiza_usuario"));
-            params.add(new BasicNameValuePair("nombre", nuevoNombre));
-            params.add(new BasicNameValuePair("telefono", nuevoTelefono));
+            params.add(new BasicNameValuePair("tipo_consulta", "modifica_usuario"));
+            params.add(new BasicNameValuePair("usu_id", String.valueOf(idUsuario)));
+            params.add(new BasicNameValuePair("usu_nombre", nuevoNombre));
+            params.add(new BasicNameValuePair("usu_telefono", nuevoTelefono));
             JSONObject json = jsonParser.makeHttpRequest(url_alta_usuario,"GET", params);
-            Log.i("URL","URL-->"+url_alta_usuario+"<-->"+json+"<--'"+nuevoNombre+"' '"+nuevoTelefono);
+            Log.i("URL","URL-->"+url_alta_usuario+"<-->"+json+"<--'"+nuevoNombre+"' '"+nuevoTelefono+",id: "+idUsuario);
             try {
                 Log.i("TAG_SUCCESS-->","-->"+json.getString(TAG_SUCCESS)+"<-- ");
                 int success = Integer.parseInt(json.getString(TAG_SUCCESS));
@@ -148,7 +151,11 @@ private SharedPreferences pref;
             progressDialog.dismiss();
             if (i==1) {
                 Toast.makeText(Perfil.this, "Datos actualizados", Toast.LENGTH_SHORT).show();
-
+                etNombre.setText(nuevoNombre);
+                etTelefono.setText(nuevoTelefono);
+                ((TextView)findViewById(R.id.tvSaludoEmail)).setText("Hola: "+nuevoNombre);
+                DatosUsuario.setNombreUsuario(nuevoNombre);
+                DatosUsuario.setTelefonoUsuario(nuevoTelefono);
             }else
                 Toast.makeText(getApplicationContext(),R.string.datos_actualizados_error, Toast.LENGTH_LONG).show();
         }

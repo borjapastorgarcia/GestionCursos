@@ -35,6 +35,7 @@ public class Asignatura extends AppCompatActivity {
     ProgressDialog progressDialog;
     private Context ctx;
     private AdaptadorListViewDevuelveAsignaturasPorCurso listAdapter;
+    private TextView tvNoASignaturas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +59,7 @@ public class Asignatura extends AppCompatActivity {
                startActivity(i);
             }
         });
+        tvNoASignaturas=(TextView)findViewById(R.id.tvNoAsignaturas);
     }
     class devuelveTodasAsignaturas extends AsyncTask<String,String,Integer> {
         @Override
@@ -99,8 +101,10 @@ public class Asignatura extends AppCompatActivity {
             for(int i=0;i<listaAsignaturas.size();i++)
                 Log.i("asignatura-->",listaAsignaturas.get(i).toString());
             listViewAsignaturas.setAdapter(listAdapter);
-            if(listaAsignaturas.size()==0)
-                ((TextView)findViewById(R.id.tvAsignaturasParaElCurso)).setText("No hay asignaturas para este curso, añade una");
+            if(listaAsignaturas.size()==0) {
+                tvNoASignaturas.setVisibility(View.VISIBLE);
+                findViewById(R.id.tvAsignaturasParaElCurso).setVisibility(View.GONE);
+            }
             progressDialog.dismiss();
         }
     }

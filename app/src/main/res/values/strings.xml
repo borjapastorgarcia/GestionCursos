@@ -90,4 +90,5 @@
     <string name="tipoDeObjeto">Compra</string>
     <string name="cargando_lista_objetos">Cargando lista de objetos...</string>
     <string name="cargando_lista_objetos_error">No tienes ningun objeto para visualizar</string>
+    <string name="cargando_dia">Cargando dia...</string>
 </resources>

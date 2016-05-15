@@ -3,9 +3,12 @@ package com.example.borja.falton20;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +37,7 @@ public class Ideas extends AppCompatActivity {
     private JSONParser jsonParser = new JSONParser();
     private static String url_alta_usuario=WebServices.desarrollo;
     private Context ctx;
+    View v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +61,6 @@ public class Ideas extends AppCompatActivity {
         DatosUsuario.recuperarPreferences(getApplicationContext().getSharedPreferences("FaltOn", MODE_PRIVATE));
         idUsuario=DatosUsuario.getIdUsuario();
         ctx=this.getApplicationContext();
-        new devuelveTodasIdeas().execute();
         listViewIdeas=(ListView)findViewById(R.id.listViewListaIdeas);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +69,37 @@ public class Ideas extends AppCompatActivity {
                 startActivity(new Intent(Ideas.this,AniadirIdea.class));
             }
         });
+        v=this.findViewById(android.R.id.content);
+        muestraIdeas();
+    }
+    public void muestraIdeas(){
+        if (haveNetworkConnection()) {
+            new devuelveTodasIdeas().execute();
+        }else{
+            Snackbar.make(v, "No hay conexión a internet", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    muestraIdeas();
+                }
+            }).show();
+        }
+    }
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
 
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
     class devuelveTodasIdeas extends AsyncTask<String, String, Integer>{
         @Override

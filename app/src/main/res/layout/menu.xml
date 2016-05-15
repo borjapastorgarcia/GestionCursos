@@ -3,7 +3,7 @@
     android:id="@+id/menu"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="#D500F9"
+    android:background="@drawable/fondo"
     android:elevation="16dp"
     android:gravity="center"
     android:orientation="vertical"
@@ -22,7 +22,7 @@
             android:id="@+id/btnFaltas"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/botonesmenu" />
+            android:background="@drawable/boton_falta" />
 
         <View
             android:id="@+id/btncv"
@@ -30,13 +30,13 @@
             android:layout_height="60dp"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
-            android:background="@drawable/botonesmenu" />
+            android:background="@drawable/boton_venta" />
 
         <View
             android:id="@+id/btnTareas"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/botonesmenu" />
+            android:background="@drawable/boton_tareas" />
     </LinearLayout>
 
     <LinearLayout
@@ -93,7 +93,7 @@
             android:id="@+id/btnIdeas"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/botonesmenu" />
+            android:background="@drawable/boton_idea" />
 
         <View
             android:id="@+id/btnCurso"
@@ -101,13 +101,13 @@
             android:layout_height="60dp"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
-            android:background="@drawable/botonesmenu" />
+            android:background="@drawable/boton_curso" />
 
         <View
             android:id="@+id/btnPerful"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/botonesmenu" />
+            android:background="@drawable/boton_editar_usuario" />
     </LinearLayout>
 
     <LinearLayout

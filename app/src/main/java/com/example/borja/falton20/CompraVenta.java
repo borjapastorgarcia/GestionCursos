@@ -42,7 +42,7 @@ public class CompraVenta extends AppCompatActivity{
         setContentView(R.layout.activity_compra_venta);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        v=this.findViewById(android.R.id.content).getRootView();
+        v=this.findViewById(android.R.id.content);
         listViewObjetos=(ListView)findViewById(R.id.listViewListaObjetosCompraVenta);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         ctx=this.getApplicationContext();

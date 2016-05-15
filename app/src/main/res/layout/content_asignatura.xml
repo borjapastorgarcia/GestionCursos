@@ -11,17 +11,32 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.borja.falton20.Asignatura"
     tools:showIn="@layout/activity_asignatura">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvAsignaturasParaElCurso"
-        android:text="Las asignaturas de este curso son: "
-        android:textAppearance="?android:textAppearanceMedium"/>
-    <ListView
 
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAsignaturasParaElCurso"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:id="@+id/listaAsignaturasPorCursoPorUsario"></ListView>
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvNoAsignaturas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aún no has añadido ninguna asignatura a este curso"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvAsignaturasParaElCurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Las asignaturas de este curso son: "
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <ListView
+
+            android:id="@+id/listaAsignaturasPorCursoPorUsario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAsignaturasParaElCurso"
+            android:paddingTop="@dimen/activity_vertical_margin"></ListView>
+    </LinearLayout>
 </RelativeLayout>

@@ -59,7 +59,6 @@ public class AniadirFalta extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        rellenaSpinnerCurso();
         spAsignaturasUsuario=(Spinner)findViewById(R.id.spAsignatura);
         spCursosUsuario=(Spinner)findViewById(R.id.spCurso);
         findViewById(R.id.btnAniadirFalta).setOnClickListener(this);
@@ -73,6 +72,22 @@ public class AniadirFalta extends AppCompatActivity implements View.OnClickListe
         telefonoUsuario=DatosUsuario.getTelefonoUsuario();
         idUsuario=DatosUsuario.getIdUsuario();
 
+        v=this.findViewById(android.R.id.content);
+        rellenaSpinners();
+
+    }
+    public void rellenaSpinners(){
+        if (haveNetworkConnection()) {
+            rellenaSpinnerCurso();
+        }else{
+            Snackbar.make(v, "No hay conexión a internet, intentelo mas tarde", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (haveNetworkConnection())
+                         rellenaSpinners();
+                }
+            }).show();
+        }
     }
     private DatePickerDialog.OnDateSetListener pDateSetListener =
             new DatePickerDialog.OnDateSetListener() {

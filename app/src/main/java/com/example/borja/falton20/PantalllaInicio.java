@@ -1,10 +1,14 @@
 package com.example.borja.falton20;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,13 +26,17 @@ public class PantalllaInicio extends AppCompatActivity implements View.OnClickLi
     private ArrayList<Item> datos;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private View viewBtnFaltas,viewBtncVenta,viewBtnTareas,viewBtnIdeas,viewBtnCurso,viewBtnPerfil;
+    int idUsuario;
+    private static final String TAG_SUCCESS = "success";
+    private JSONParser jsonParser = new JSONParser();
+    private static String url_alta_usuario=WebServices.desarrollo;
+    private Context ctx;
+    private ProgressDialog progressDialog;
+    private View btnFaltas,btnObjetos, btnTareas, btnIdeas, btnCurso, btnPerfil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantallla_inicio);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         findViewById(R.id.btnMenu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,6 +46,7 @@ public class PantalllaInicio extends AppCompatActivity implements View.OnClickLi
                     findViewById(R.id.menu).setVisibility(View.VISIBLE);
             }
         });
+
         //Botones menu superior
             findViewById(R.id.btnFaltas).setOnClickListener(this);
             findViewById(R.id.btncv).setOnClickListener(this);
@@ -45,6 +54,14 @@ public class PantalllaInicio extends AppCompatActivity implements View.OnClickLi
             findViewById(R.id.btnIdeas).setOnClickListener(this);
             findViewById(R.id.btnCurso).setOnClickListener(this);
             findViewById(R.id.btnPerful).setOnClickListener(this);
+
+        btnFaltas=(View)findViewById(R.id.btnFaltas);
+        btnObjetos=(View)findViewById(R.id.btncv);
+        btnTareas=(View)findViewById(R.id.btnTareas);
+        btnIdeas=(View)findViewById(R.id.btnIdeas);
+        btnCurso=(View)findViewById(R.id.btnCurso);
+        btnPerfil=(View)findViewById(R.id.btnPerful);
+
         //botones FAB menu
             findViewById(R.id.fabAniadirFalta).setOnClickListener(this);
             findViewById(R.id.fabAniadirIdea).setOnClickListener(this);
@@ -92,7 +109,27 @@ public class PantalllaInicio extends AppCompatActivity implements View.OnClickLi
 
         });
     }
+    class devuelveTodo extends AsyncTask<String, String, Integer>{
 
+        @Override
+        protected Integer doInBackground(String... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(PantalllaInicio.this);
+            progressDialog.setMessage(getResources().getString(R.string.cargando_dia));
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            //cargar listados
+        }
+    }
     @Override
     public void onClick(View v) {
         int id=v.getId();

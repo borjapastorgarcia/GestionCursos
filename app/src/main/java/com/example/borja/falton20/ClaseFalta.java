@@ -9,6 +9,20 @@ public class ClaseFalta {
     private int id;
     private Date fechaFalta;
     private int idAsignatura;
+    private int totalFaltasXAsignatura;
+    public ClaseFalta(int totalFaltasXAsignatura, int idAsignatura){
+        this.totalFaltasXAsignatura=totalFaltasXAsignatura;
+        this.idAsignatura=idAsignatura;
+    }
+
+    @Override
+    public String toString() {
+        return "ClaseFalta-->"+String.valueOf(fechaFalta)+" , idASignatura-->"+idAsignatura+", totalFaltasxAsignatura: "+totalFaltasXAsignatura;
+    }
+
+    public int getTotalFaltasXAsignatura() {
+        return totalFaltasXAsignatura;
+    }
 
     public ClaseFalta(int id, Date fechaFalta, int idAsignatura) {
         this.id = id;

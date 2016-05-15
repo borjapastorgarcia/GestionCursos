@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -69,38 +69,47 @@
         <activity
             android:name=".AniadirFalta"
             android:label="@string/title_activity_aniadir_falta"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AniadirNota"
             android:label="@string/title_activity_aniadir_nota"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AniadirIdea"
             android:label="@string/title_activity_aniadir_idea"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AniadirTarea"
             android:label="@string/title_activity_aniadir_tarea"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EligeCurso"
             android:label="@string/title_activity_elige_curso"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EligeAsignaturas"
             android:label="@string/title_activity_elige_asignaturas"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AniadirObjeto"
             android:label="@string/title_activity_aniadir_objeto"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Asignatura"
             android:label="@string/title_activity_asignatura"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AniadirAsignatura"
             android:label="@string/title_activity_aniadir_asignatura"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

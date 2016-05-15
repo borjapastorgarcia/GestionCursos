@@ -3,13 +3,18 @@ package com.example.borja.falton20;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -29,19 +34,23 @@ public class Falta extends AppCompatActivity {
     private ArrayList<ClaseCurso> listaCursos = new ArrayList<ClaseCurso>();
     private ArrayList<ClaseAsignatura> listaAsignaturas = new ArrayList<ClaseAsignatura>();
     private ArrayList<ClaseFalta> listaFaltas = new ArrayList<ClaseFalta>();
+    private ArrayList<Integer>idAsignaturas=new ArrayList<Integer>();
+    private AdaptadorListViewDevuelveFaltas listAdapterFaltas;
     public ProgressDialog progressDialog;
     int idUsuario,idCurso,idAsignatura;
     private static final String TAG_SUCCESS = "success";
     private JSONParser jsonParser = new JSONParser();
     private static String url_alta_usuario=WebServices.desarrollo;
+    ListView listViewFaltas;
     private Context ctx;
+    View v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_falta);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        listViewFaltas=(ListView)findViewById(R.id.listViewListaFaltas);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,9 +63,38 @@ public class Falta extends AppCompatActivity {
         ctx=this.getApplicationContext();
         //devolver la lista de cursos de usuario
         listaCursos = new ArrayList<ClaseCurso>();
-        new devuelveTodosCursos().execute();
         listaAsignaturas = new ArrayList<ClaseAsignatura>();
+        v=this.findViewById(android.R.id.content);
+        muestraFaltas();
+    }
+    public void muestraFaltas(){
+        if (haveNetworkConnection()) {
+            new devuelveTodosCursos().execute();
+        }else{
+            Snackbar.make(v, "No hay conexión a internet", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    muestraFaltas();
+                }
+            }).show();
+        }
+    }
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
 
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
     class devuelveTodosCursos extends AsyncTask<String,String,Integer> {
         @Override
@@ -94,14 +132,9 @@ public class Falta extends AppCompatActivity {
             super.onPostExecute(integer);
             for (int i = 0; i < listaCursos.size(); i++)
                 Log.i("Curso-->", listaCursos.get(i).toString());
-            if(listaCursos.size()>0){
-                new devuelveTodasAsignaturas().execute();
-                for(int i=1;i<listaCursos.size();i++){
-                    idCurso=listaCursos.get(i).getId();
-                    Log.i("arraylistcursos","-->"+listaCursos.get(i).getId()+"<-- ");
+            if(listaCursos.size()>0)
                     new devuelveTodasAsignaturas().execute();
-                }
-            }else
+            else
                 progressDialog.dismiss();
         }
     }
@@ -109,15 +142,16 @@ public class Falta extends AppCompatActivity {
         @Override
         protected Integer doInBackground(String... args) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("tipo_consulta", "devuelveTodasAsignaturas"));
-            params.add(new BasicNameValuePair("usu_id", String.valueOf(idUsuario)));
-            params.add(new BasicNameValuePair("cu_id", String.valueOf(idCurso)));
+            for(int i=0;i<listaCursos.size();i++){
+                params.add(new BasicNameValuePair("tipo_consulta", "devuelveTodasAsignaturas"));
+                params.add(new BasicNameValuePair("usu_id", String.valueOf(idUsuario)));
+                params.add(new BasicNameValuePair("cu_id", String.valueOf(listaCursos.get(i).getId())));
             JSONObject json = jsonParser.makeHttpRequest(url_alta_usuario,"GET", params);
             Log.i("devuelveAsigXCurso","-->"+url_alta_usuario+"<-- "+json+"cu_id"+idCurso);
             try {
                 JSONArray jArray  = json.getJSONArray("asignaturas");
-                for(int i=0;i<jArray.length();i++){
-                    JSONObject fila=jArray.getJSONObject(i);
+                for(int j=0;j<jArray.length();j++){
+                    JSONObject fila=jArray.getJSONObject(j);
                     ClaseAsignatura claseAsignatura=new ClaseAsignatura(fila.getInt("asig_id"),
                             fila.getInt("asig_porcentaje_faltas"),
                             fila.getInt("asig_porcentaje_faltas"),
@@ -127,24 +161,22 @@ public class Falta extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            }
+
             return 0;
         }
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
-
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
-            for(int i=0;i<listaAsignaturas.size();i++)
-                Log.i("asignatura-->",listaAsignaturas.get(i).toString());
-
             if(listaAsignaturas.size()>0){//sacar faltas x asignatura
                 for(int i=0;i<listaAsignaturas.size();i++){
-                    idAsignatura=listaAsignaturas.get(i).getIdAsignatura();
-                    new devuelveFaltasXAsignatura().execute();
+                    idAsignaturas.add(listaAsignaturas.get(i).getIdAsignatura());
                 }
+                new devuelveFaltasXAsignatura().execute();
             }else
                 progressDialog.dismiss();
         }
@@ -154,44 +186,45 @@ public class Falta extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
         }
-
+        @Override
+        protected Integer doInBackground(String... args) {
+            for(int k=0;k<idAsignaturas.size();k++){
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("tipo_consulta", "devuelveTodasFaltas"));
+                params.add(new BasicNameValuePair("usu_id", String.valueOf(idUsuario)));
+                params.add(new BasicNameValuePair("asig_id",String.valueOf(idAsignaturas.get(k))));
+                JSONObject json = jsonParser.makeHttpRequest(url_alta_usuario,"GET", params);
+                Log.i("devuelveTodasFaltas","-->"+url_alta_usuario+"<-- "+json+"idasign-->"+String.valueOf(idAsignaturas.get(k)));
+                try {
+                    JSONArray jArray  = json.getJSONArray("faltas");
+                    for(int i=0;i<jArray.length();i++){
+                        JSONObject fila=jArray.getJSONObject(i);
+                        ClaseFalta claseFalta=null;
+                        if(fila.getInt("total")>0){
+                            claseFalta=new ClaseFalta(fila.getInt("total"),idAsignaturas.get(k));
+                            listaFaltas.add(claseFalta);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return 0;
+        }
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
             for(int i=0;i<listaFaltas.size();i++)
                 Log.i("falta-->",listaFaltas.get(i).toString());
             if (listaFaltas.size()==0){
-                Toast.makeText(ctx, "No tienes ninguna falta", Toast.LENGTH_SHORT).show();
+                TextView tvNoFaltas=(TextView)findViewById(R.id.tvnofaltas);
+                tvNoFaltas.setVisibility(View.VISIBLE);
+            }else{
+                listAdapterFaltas = new AdaptadorListViewDevuelveFaltas(ctx, listaFaltas,listaAsignaturas);
+                Toast.makeText(ctx, "Mostramos faltas", Toast.LENGTH_SHORT).show();
+                listViewFaltas.setAdapter(listAdapterFaltas);
             }
             progressDialog.dismiss();
-        }
-
-        @Override
-        protected Integer doInBackground(String... args) {
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("tipo_consulta", "devuelveTodasFaltas"));
-            params.add(new BasicNameValuePair("usu_id", String.valueOf(idUsuario)));
-            params.add(new BasicNameValuePair("asig_id",String.valueOf(idAsignatura)));
-            JSONObject json = jsonParser.makeHttpRequest(url_alta_usuario,"GET", params);
-            Log.i("devuelveAsigXCurso","-->"+url_alta_usuario+"<-- "+json+"idasign-->"+idAsignatura);
-            try {
-                JSONArray jArray  = json.getJSONArray("faltas");
-                for(int i=0;i<jArray.length();i++){
-                    JSONObject fila=jArray.getJSONObject(i);
-                    String fechaStr=fila.getString("fa_fecha");
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-                    Date date = formatter.parse(fechaStr);
-                    ClaseFalta claseFalta=new ClaseFalta(fila.getInt("fa_id"),
-                                                        date,
-                                                        fila.getInt("asig_id"));
-                    listaFaltas.add(claseFalta);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return 0;
         }
     }
 }

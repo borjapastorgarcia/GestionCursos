@@ -3,9 +3,12 @@ package com.example.borja.falton20;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -30,36 +34,22 @@ public class Curso extends AppCompatActivity{
     public ProgressDialog progressDialog;
     int idUsuario;
     private static final String TAG_SUCCESS = "success";
-    private SwipeRefreshLayout swipeRefreshLayout;
     private JSONParser jsonParser = new JSONParser();
     private static String url_alta_usuario=WebServices.desarrollo;
+    TextView tvNoCursos;
     private Context ctx;
+    View v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_curso);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefrescaListaCursos);
-
         listViewCursos=(ListView)findViewById(R.id.listaCursos);
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
-            @Override
-            public void onRefresh() {
-                Log.e("SwipeRefresh","Se pulsa swipeRefresh");
-                listViewCursos.setAdapter(null);
-                listaCursos = new ArrayList<ClaseCurso>();
-                new devuelveTodosCursos().execute();
-                listAdapter = new AdaptadorListViewDevuelveCursos(ctx, listaCursos);
-                listViewCursos.setAdapter(listAdapter);
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
         DatosUsuario.recuperarPreferences(getApplicationContext().getSharedPreferences("FaltOn", MODE_PRIVATE));
         idUsuario=DatosUsuario.getIdUsuario();
         ctx=this.getApplicationContext();
-        new devuelveTodosCursos().execute();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +57,38 @@ public class Curso extends AppCompatActivity{
                startActivity(new Intent(Curso.this,EligeCurso.class));
             }
         });
+        tvNoCursos=(TextView) findViewById(R.id.tvNoCursos);
+        v=this.findViewById(android.R.id.content);
+        muestraCursos();
+    }
+    public void muestraCursos(){
+        if (haveNetworkConnection()) {
+            new devuelveTodosCursos().execute();
+        }else{
+            Snackbar.make(v, "No hay conexión a internet", Snackbar.LENGTH_LONG) .setAction("Reintentar", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    muestraCursos();
+                }
+            }).show();
+        }
+    }
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
     class devuelveTodosCursos extends AsyncTask<String,String,Integer>{
         @Override
@@ -117,6 +139,8 @@ public class Curso extends AppCompatActivity{
                     startActivity(i);
                 }
             });
+            if (listaCursos.size()==0)
+                tvNoCursos.setVisibility(View.VISIBLE);
             progressDialog.dismiss();
         }
     }
